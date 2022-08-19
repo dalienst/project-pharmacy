@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+markdown = "*"
+dj-database-url = "*"
+python-decouple = "*"
+black = "*"
+psycopg2 = "*"
+
+[dev-packages]
+autopep8 = "*"
+pep8 = "*"
+pylint = "*"
+pylint-django = "*"
+
+[requires]
+python_version = "3.10"
