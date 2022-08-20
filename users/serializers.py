@@ -14,12 +14,15 @@ from users.validators import (
     validate_password_uppercase,
 )
 
-from users.models import Pharmacist
+from users.models import Pharmacist, Customer, Manufacturer
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    User model
+    """
 
     id = serializers.CharField(
         read_only=True,
@@ -53,6 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "email", "username", "password")
 
     def create(self, validated_data: Any) -> Any:
+
         user = User.objects.create_user(**validated_data)
         user.save()
 
@@ -95,3 +99,87 @@ class PharmacistSerializer(serializers.ModelSerializer):
         validated_data['pharmacist'] = self.context.get("request").user
         employee = super().create(validated_data)
         return employee
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    """
+    Customer Model Serializer
+    """
+    id = serializers.CharField(
+        read_only=True
+    )
+    customer = UserSerializer(
+        read_only=True
+    )
+    first_name = serializers.CharField(min_length=2, max_length=90)
+    last_name = serializers.CharField(min_length=2, max_length=90)
+    contact = serializers.IntegerField()
+    location = serializers.CharField(min_length=2, max_length=255)
+
+    class Meta:
+        model = Customer
+        fields = (
+            "id",
+            "customer",
+            "first_name",
+            'last_name',
+            'contact',
+            "location",
+        )
+
+        read_only_fields = (
+            'id',
+            'customer'
+        )
+
+    def create(self, validated_data):
+        """
+        set current user as customer
+        """
+        validated_data['customer'] = self.context.get("request").user
+        buyer = super().create(validated_data)
+        return buyer
+
+class ManufacturerSerializer(serializers.ModelSerializer):
+    """
+    Manufacturer Model Serializer
+    """
+    id = serializers.CharField(
+        read_only=True
+    )
+    manufacturer = UserSerializer(
+        read_only=True
+    )
+    company_name = serializers.CharField(min_length=2, max_length=90)
+    contact = serializers.IntegerField()
+    location = serializers.CharField(min_length=2, max_length=255)
+    license = serializers.CharField(
+        min_length=2,
+        max_length=255,
+        validators=[UniqueValidator(queryset=Manufacturer.objects.all())],
+    )
+
+
+    class Meta:
+        model = Manufacturer
+        fields = (
+            "id",
+            "manufacturer",
+            "company_name",
+            'license',
+            'contact',
+            'location',
+        )
+
+        read_only_fields = (
+            'id',
+            'manufacturer'
+        )
+
+    def create(self, validated_data):
+        """
+        set current user as customer
+        """
+        validated_data['manufacturer'] = self.context.get("request").user
+        distributor = super().create(validated_data)
+        return distributor

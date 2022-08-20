@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from users.serializers import UserSerializer, PharmacistSerializer
-from users.models import Pharmacist
-from users.permissions import IsUser, IsSuperUser
+from users.serializers import UserSerializer, PharmacistSerializer, ManufacturerSerializer, CustomerSerializer
+from users.models import Pharmacist, Customer, Manufacturer
+from users.permissions import IsUser, IsSuperUser, IsCustomer
 
 User = get_user_model()
 
@@ -53,5 +53,55 @@ class PharmacistDetailView(generics.RetrieveUpdateDestroyAPIView):
         self.destroy(request, *args, **kwargs)
         return  Response(
             {"message":"Profile Deleted Successfully"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class CustomerListCreateView(generics.ListCreateAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+
+class CustomerListView(generics.ListCreateAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+
+class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+    serializer_class = CustomerSerializer
+    lookup_field = "customer"
+
+    def delete(self, request, *args, **kwargs):
+        self.destroy(request, *args, **kwargs)
+        return  Response(
+            {"message":"Profile Deleted Successfully"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class ManufacturerListCreateView(generics.ListCreateAPIView):
+    serializer_class = ManufacturerSerializer
+    queryset = Manufacturer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+
+
+class ManufacturerListView(generics.ListCreateAPIView):
+    serializer_class = ManufacturerSerializer
+    queryset = Manufacturer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+
+
+class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Manufacturer.objects.all()
+    permission_classes = [IsAuthenticated, IsUser]
+    serializer_class = ManufacturerSerializer
+    lookup_field = "manufacturer"
+
+    def delete(self, request, *args, **kwargs):
+        self.destroy(request, *args, **kwargs)
+        return Response(
+            {"message": "Profile Deleted Successfully"},
             status=status.HTTP_204_NO_CONTENT,
         )
