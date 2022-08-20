@@ -20,6 +20,9 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    User model
+    """
 
     id = serializers.CharField(
         read_only=True,
