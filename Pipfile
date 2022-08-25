@@ -12,6 +12,7 @@ dj-database-url = "*"
 python-decouple = "*"
 black = "*"
 psycopg2 = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 autopep8 = "*"
