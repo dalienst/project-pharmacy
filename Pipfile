@@ -13,6 +13,8 @@ python-decouple = "*"
 black = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 autopep8 = "*"
