@@ -31,7 +31,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['project-pharnacy.herokuapp.com' ]
+ALLOWED_HOSTS = ['project-pharmacy.herokuapp.com' ]
 
 
 # Application definition
