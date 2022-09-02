@@ -21,7 +21,6 @@ class InventoryListView(generics.ListAPIView):
     """"""
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()
-    permission_classes = [IsAuthenticated]
 
 class InventoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     """"""
