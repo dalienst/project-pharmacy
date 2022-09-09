@@ -73,7 +73,7 @@ MIDDLEWARE = [
 ]
 
 # White listing the localhost:3000 port
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "https://projectpharmacy.netlify.app",]
 
 CORS_ALLOW_CREDENTIALS = True
 
