@@ -59,7 +59,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         user = User.objects.create_user(**validated_data)
         user.save()
-        Pharmacist.objects.create(pharmacist=user)
 
         return user
 
@@ -71,7 +70,7 @@ class PharmacistSerializer(serializers.ModelSerializer):
     id = serializers.CharField(
         read_only=True
     )
-    username = serializers.CharField(read_only=True, source="pharmacist.username")
+    pharmacist = UserSerializer(read_only=True)
     first_name = serializers.CharField(min_length=2, max_length=90)
     last_name = serializers.CharField(min_length=2, max_length=90)
     contact = serializers.IntegerField()
@@ -81,7 +80,7 @@ class PharmacistSerializer(serializers.ModelSerializer):
         model = Pharmacist
         fields = (
             "id",
-            "username",
+            "pharmacist",
             "first_name",
             'last_name',
             'contact',
@@ -93,21 +92,13 @@ class PharmacistSerializer(serializers.ModelSerializer):
             'pharmacist'
         )
 
-    # def create(self, validated_data):
-    #     """
-    #     set current user as pharmacist
-    #     """
-    #     validated_data['pharmacist'] = self.context.get("request").user
-    #     employee = super().create(validated_data)
-    #     return employee
-
-    def update(self, instance, validated_data):
-        instance.first_name = validated_data.get("first_name", instance.first_name)
-        instance.last_name = validated_data.get("last_name", instance.last_name)
-        instance.contact = validated_data.get("contact", instance.contact)
-        instance.employee_number = validated_data.get("employee_number", instance.employee_number)
-        instance.save()
-        return instance
+    def create(self, validated_data):
+        """
+        set current user as pharmacist
+        """
+        validated_data['pharmacist'] = self.context.get("request").user
+        employee = super().create(validated_data)
+        return employee
 
 
 class CustomerSerializer(serializers.ModelSerializer):

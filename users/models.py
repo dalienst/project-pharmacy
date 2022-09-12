@@ -126,4 +126,4 @@ class Pharmacist(TimeStampedModel, UniversalIdModel):
     employee_number = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.pharmacist.username
+        return self.employee_number
