@@ -71,7 +71,7 @@ class PharmacistSerializer(serializers.ModelSerializer):
     id = serializers.CharField(
         read_only=True
     )
-    username = serializers.CharField(read_only=True, source="pharmacist.username")
+    pharmacist = UserSerializer(read_only=True,)
     first_name = serializers.CharField(min_length=2, max_length=90)
     last_name = serializers.CharField(min_length=2, max_length=90)
     contact = serializers.IntegerField()
@@ -81,7 +81,7 @@ class PharmacistSerializer(serializers.ModelSerializer):
         model = Pharmacist
         fields = (
             "id",
-            "username",
+            "pharmacist",
             "first_name",
             'last_name',
             'contact',

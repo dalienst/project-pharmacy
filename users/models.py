@@ -116,7 +116,7 @@ class Pharmacist(TimeStampedModel, UniversalIdModel):
     """
 
     pharmacist = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="pharmacist"
+        User, on_delete=models.CASCADE
     )
     first_name = models.CharField(_("first name"), max_length=150, blank=False)
     last_name = models.CharField(_("last name"), max_length=150, blank=False)
