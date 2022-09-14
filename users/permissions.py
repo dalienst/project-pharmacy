@@ -7,10 +7,13 @@ from rest_framework.permissions import IsAdminUser
 
 
 class IsUser(permissions.BasePermission):
-    def has_object_permission(
-        self, request: Request, view: APIView, obj: Any
-    ) -> Any:
+    def has_object_permission(self, request: Request, view: APIView, obj: Any) -> Any:
         return obj.pharmacist == request.user
+
+
+class UserNew(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.id
 
 
 class IsSuperUser(IsAdminUser):

@@ -14,12 +14,14 @@ from users.views import (
     CustomerListView,
     CustomerListCreateView,
     CustomerDetailView,
+    UserDetailView,
 )
 
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("register/", UserRegister.as_view(), name="register"),
+    path("me/<str:id>/", UserDetailView.as_view(), name="user-detail"),
 
     path("employee/", PharmacistCreateView.as_view(), name="employee"),
     path("employees/", PharmacistView.as_view(), name='all-employees'),

@@ -8,7 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.serializers import UserSerializer, PharmacistSerializer, ManufacturerSerializer, CustomerSerializer
 from users.models import Pharmacist, Customer, Manufacturer
-from users.permissions import IsUser, IsSuperUser, IsCustomer
+from users.permissions import NewUser, IsUser, IsSuperUser, UserNew
 
 User = get_user_model()
 
@@ -30,6 +30,12 @@ class UsersView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsSuperUser]
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, UserNew]
+    lookup_field = "id"
 
 
 class PharmacistCreateView(generics.ListCreateAPIView):
