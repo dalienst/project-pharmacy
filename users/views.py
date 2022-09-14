@@ -51,7 +51,7 @@ class PharmacistView(generics.ListCreateAPIView):
 
 class PharmacistDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pharmacist.objects.all()
-    permission_classes = [IsAuthenticated, IsUser]
+    permission_classes = [IsAuthenticated, IsUser, UserNew]
     serializer_class = PharmacistSerializer
     lookup_field = "pharmacist"
 
