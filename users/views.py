@@ -8,7 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.serializers import UserSerializer, PharmacistSerializer, ManufacturerSerializer, CustomerSerializer
 from users.models import Pharmacist, Customer, Manufacturer
-from users.permissions import NewUser, IsUser, IsSuperUser, UserNew
+from users.permissions import IsUser, IsSuperUser, UserNew
 
 User = get_user_model()
 
