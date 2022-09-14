@@ -155,9 +155,6 @@ class ManufacturerSerializer(serializers.ModelSerializer):
     id = serializers.CharField(
         read_only=True
     )
-    manufacturer = UserSerializer(
-        read_only=True
-    )
     company_name = serializers.CharField(min_length=2, max_length=90)
     contact = serializers.IntegerField()
     location = serializers.CharField(min_length=2, max_length=255)
@@ -172,7 +169,6 @@ class ManufacturerSerializer(serializers.ModelSerializer):
         model = Manufacturer
         fields = (
             "id",
-            "manufacturer",
             "company_name",
             'license',
             'contact',
@@ -181,13 +177,16 @@ class ManufacturerSerializer(serializers.ModelSerializer):
 
         read_only_fields = (
             'id',
-            'manufacturer'
         )
 
     def create(self, validated_data):
         """
         set current user as customer
         """
-        validated_data['manufacturer'] = self.context.get("request").user
-        distributor = super().create(validated_data)
-        return distributor
+        # validated_data = self.context.get("request").user
+        # distributor = super().create(validated_data)
+        # return distributor
+        distro = Manufacturer.objects.create(**validated_data)
+        distro.save()
+        return distro
+

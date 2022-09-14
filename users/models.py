@@ -77,9 +77,6 @@ class Manufacturer(TimeStampedModel, UniversalIdModel):
     Manufacturer model
     """
 
-    manufacturer = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="manufacturer"
-    )
     company_name = models.CharField(max_length=255, blank=False, null=False)
     location = models.CharField(max_length=255, blank=False, null=False)
     license = models.CharField(max_length=255, blank=False, null=False)
@@ -115,9 +112,7 @@ class Pharmacist(TimeStampedModel, UniversalIdModel):
     Employee model
     """
 
-    pharmacist = models.OneToOneField(
-        User, on_delete=models.CASCADE
-    )
+    pharmacist = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(_("first name"), max_length=150, blank=False)
     last_name = models.CharField(_("last name"), max_length=150, blank=False)
     contact = models.BigIntegerField(

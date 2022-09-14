@@ -7,6 +7,7 @@ from rest_framework.response import Response
 
 from inventory.serializers import InventorySerializer, CartSerializer, OrderSerializer
 from inventory.models import Inventory, CartItem, Order
+from users.permissions import IsUser, UserNew
 
 # todo: check and create permissions
 
@@ -15,7 +16,7 @@ class InventoryListCreateView(generics.ListCreateAPIView):
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()
     # TODO: set permission to only allow employee to enter records
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, IsUser]
 
 class InventoryListView(generics.ListAPIView):
     """"""
@@ -27,7 +28,7 @@ class InventoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()
     # TODO: set permission to only allow employee to enter records
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, UserNew]
     lookup_field = "id"
 
     def delete(self, request, *args, **kwargs):
