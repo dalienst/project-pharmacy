@@ -101,9 +101,9 @@ class ManufacturerListView(generics.ListCreateAPIView):
 
 class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manufacturer.objects.all()
-    permission_classes = [IsAuthenticated, IsUser]
+    permission_classes = [IsAuthenticated,]
     serializer_class = ManufacturerSerializer
-    lookup_field = "manufacturer"
+    lookup_field = "id"
 
     def delete(self, request, *args, **kwargs):
         self.destroy(request, *args, **kwargs)

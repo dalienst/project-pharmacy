@@ -31,8 +31,8 @@ urlpatterns = [
     path("customers/", CustomerListView.as_view(), name='all-customer'),
     path("customer/<str:customer>/", CustomerDetailView.as_view(), name="update-customer"),
 
-    path("distributor/", ManufacturerListCreateView.as_view(), name="employee"),
-    path("distributors/", ManufacturerListView.as_view(), name='all-employees'),
-    path("distributor/<str:manufacturer>/", ManufacturerDetailView.as_view(), name="update-employee"),
+    path("distributor/", ManufacturerListCreateView.as_view(), name="distro"),
+    path("distributors/", ManufacturerListView.as_view(), name='all-distros'),
+    path("distributor/<str:id>/", ManufacturerDetailView.as_view(), name="update-distro"),
 
 ]
